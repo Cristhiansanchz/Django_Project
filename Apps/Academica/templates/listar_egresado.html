@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    
+    <!-- Fuente Google Fonts -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@1,200&display=swap" rel="stylesheet">
+
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="{% static 'css/registrar_egresado.css' %}">
+
+    {% block title %} Listar Egresados {% endblock %}
+
+</head>
+    
+{% block content %}
+
+    <!-- ========== Cuadro de busqueda ========== -->
+
+    <form class="col-12 col-md-3 offset-md-0 pt-5" method="GET">
+        <div class="form-group mx-sm-3 mb-2">
+          <input type="text" class="form-control" placeholder="Ingrese su criterio de busqueda" name="buscar" value="{{ request.GET.buscar }}">
+        </div>
+        <button type="submit" class="btn btn-primary mx-sm-3 mb-2 btnp">Buscar</button>
+    </form>
+
+    <!-- ========== Botón de exportar a Excel ========== -->
+
+    <div class="container-fluid">
+        <div class="col-12 col-md-0 offset-md-12">
+            <a href="{% url 'export_excel' %}" class="btn btn-secondary">Exportar Excel</a>
+        </div>
+    </div>
+
+    <!-- ========== Listado de Egresados ========== -->  
+
+    <div class="container-fluid pt-2">
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <!-- <th scope="col">#</th> -->
+                    <th scope="col">Nombres</th>
+                    <th scope="col">Apellidos</th>
+                    <th scope="col">Documento</th>
+                    <th scope="col">Email Personal</th>
+                    <th scope="col">Email Institucional</th>
+                    <th scope="col">Célular</th>
+                    <th scope="col">Fecha de Grado</th>
+                    <th scope="col">Nivel Educativo</th>
+                    <th scope="col">Titulo</th>
+                    <th scope="col">Modalidad</th>
+                    <th scope="col">Territorial</th>
+                    <th scope="col">CETAP</th>
+                    {% if perms.Academica.change_egresado %}
+                    <th colspan="2" class="centrado">Opciones</th>
+                    {% endif %} 
+                </tr>
+            </thead>
+            <tbody>
+                {% for e in egresados%}
+                <tr class="rows">
+                    <!-- <th scope="row">{{forloop.counter}}</th> -->
+                    <td>{{e.nombre|title}}</td>
+                    <td>{{e.apellido|title}}</td>
+                    <td>{{e.cedula}}</td>
+                    <td>{{e.email_personal|lower}}</td>
+                    <td>{{e.email_institucional|lower}}</td>
+                    <td>{{e.celular}}</td>
+                    <td>{{e.fecha_grado}}</td>
+                    <td>{{e.nivel_educativo}}</td>
+                    <td>{{e.titulo}}</td>
+                    <td>{{e.modalidad}}</td>
+                    <td>{{e.territorial}}</td>
+                    <td>{{e.cetap}}</td>
+                    {% if perms.Academica.change_egresado %}
+                    <td><a href="editar_egresado/{{e.id}}" class="btn btn-sm btn-block btn-warning">Editar</a></td>
+                    {% endif %} 
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div>
+            {% include 'paginator.html' %}
+        </div>
+    </div>
+
+{% endblock %}
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+
+</html>

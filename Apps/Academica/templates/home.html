@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    {% block title %} Home  |  Bienvenida {% endblock %}
+</head>
+
+{% block content %}
+
+    <div class="container pt-5">
+        <div class="jumbotron pt-5">
+            <p class="display-4">¡Bienvenid@, {{ user.first_name }}!</p>
+            <p class="lead">Este sistema de información le permitirá administrar la información de los egresados de los programas de pregrado y posgrado de la Escuela Superior de Administración Pública - Territorial Meta,
+            Guaviare, Guainía, Vaupés, Vichada y Amazonas.
+            </p>
+            <hr class="my-4">
+            <p>Para conocer la lista de egresados que se encuentran registrados en la base de datos por favor haga clic en el siguiente botón:</p>
+            <a class="btn btn-primary btn-lg btnp" href="{% url 'listar_egresado' %}" role="button">Mostrar Egresados</a>
+        </div>
+    </div>
+
+{% endblock %}
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+
+</html>
